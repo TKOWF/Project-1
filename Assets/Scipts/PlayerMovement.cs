@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,15 +9,22 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private float moveInput;
     private bool isGrounded;
+    private PlayerCombat playerCombat;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerCombat = GetComponent<PlayerCombat>();
     }
 
     public void OnMove(InputValue value)
     {
-        moveInput = value.Get<float>();
+    moveInput = value.Get<float>();
+
+    if (moveInput > 0)
+        playerCombat.SetFacingDirection(1);
+    else if (moveInput < 0)
+        playerCombat.SetFacingDirection(-1);
     }
 
     public void OnJump(InputValue value)
