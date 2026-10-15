@@ -44,4 +44,17 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(1);
         }
     }
+
+    public bool Heal(int amount)
+    {
+        if (currentHealth >= maxHealth)
+            return false;
+
+        currentHealth = Mathf.Min(
+            currentHealth + amount,
+            maxHealth
+        );
+
+        return true;
+    }
 }

@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - MedKit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Pickups
   - Water
   - UI
   - 
