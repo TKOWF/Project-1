@@ -12,9 +12,25 @@ public class EnemySpawner : MonoBehaviour
 
     public void RespawnEnemies()
     {
-        foreach (Transform spawnPoint in spawnPoints)
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
-            enemyPool.GetEnemy(spawnPoint.position);
+            GameObject enemy = enemyPool.GetEnemy(
+                spawnPoints[i].position
+            );
+
+            if (enemy != null)
+            {
+                EnemyHealth health =
+                    enemy.GetComponent<EnemyHealth>();
+
+                if (health != null)
+                {
+                    bool isLastEnemy =
+                        i == spawnPoints.Length - 1;
+
+                    health.SetFinalEnemy(isLastEnemy);
+                }
+            }
         }
     }
 }
