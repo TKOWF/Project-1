@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour
 
     private int currentHealth;
     private float nextDamageTime;
+    private const string DeathsKey = "TotalDeaths";
 
     void Awake()
     {
@@ -30,11 +31,18 @@ public class PlayerHealth : MonoBehaviour
 
     private void Respawn()
     {
-    Time.timeScale = 1f;
+        int totalDeaths = PlayerPrefs.GetInt(DeathsKey, 0);
 
-    SceneManager.LoadScene(
-        SceneManager.GetActiveScene().buildIndex
-    );
+        totalDeaths++;
+
+        PlayerPrefs.SetInt(DeathsKey, totalDeaths);
+        PlayerPrefs.Save();
+
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
     }
 
     void OnCollisionStay2D(Collision2D collision)
