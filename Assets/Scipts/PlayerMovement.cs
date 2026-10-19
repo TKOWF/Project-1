@@ -10,21 +10,33 @@ public class PlayerMovement : MonoBehaviour
     private float moveInput;
     private bool isGrounded;
     private PlayerCombat playerCombat;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCombat = GetComponent<PlayerCombat>();
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     public void OnMove(InputValue value)
     {
-    moveInput = value.Get<float>();
+        moveInput = value.Get<float>();
 
-    if (moveInput > 0)
-        playerCombat.SetFacingDirection(1);
-    else if (moveInput < 0)
-        playerCombat.SetFacingDirection(-1);
+        animator.SetFloat("Speed", Mathf.Abs(moveInput));
+
+        if (moveInput > 0)
+        {
+            playerCombat.SetFacingDirection(1);
+            spriteRenderer.flipX = false;
+        }
+        else if (moveInput < 0)
+        {
+            playerCombat.SetFacingDirection(-1);
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void OnJump(InputValue value)

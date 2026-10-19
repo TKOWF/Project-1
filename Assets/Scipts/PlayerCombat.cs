@@ -9,6 +9,12 @@ public class PlayerCombat : MonoBehaviour
 
     private float nextAttackTime;
     private int facingDirection = 1;
+    private Animator animator;
+
+    void Awake()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     public void SetFacingDirection(int direction)
     {
@@ -21,6 +27,7 @@ public class PlayerCombat : MonoBehaviour
             return;
 
         nextAttackTime = Time.time + attackCooldown;
+        animator.SetTrigger("Melee");
 
         Vector2 attackCenter = (Vector2)transform.position +
                                Vector2.right * facingDirection * attackRange * 0.5f;
